@@ -1,0 +1,12 @@
+== protoio ==
+A web server based on protothreads
+
+Protothreads are simple threads with no stack state, this makes context switching almost
+instantaneous. By designing the threading model as co-operative, and involving a few
+"real" (system) threads, it's easy to code the server in a linear fashion - there's a
+single protothread per connection that blocks on all IO calls, and resumes when unblocked,
+meaning a whole HTTP conversation is carried out by one function from top to bottom.
+
+The code for the server is simplified greatly, and the use of a combination of protothreads
+and real threads means we can get the maximum use out of a system.
+
